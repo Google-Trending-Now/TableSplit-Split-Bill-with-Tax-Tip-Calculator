@@ -1,0 +1,2189 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Split Bill with Tax and Tip Calculator — TableSplit</title>
+  <meta name="description" content="Free US split bill with tax and tip calculator. Compare pre-tax vs. post-tax tipping, pick a percentage, split group dinner checks, and copy totals." />
+  <link rel="canonical" href="https://tablesplit.example.com/" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#047857" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:site_name" content="TableSplit" />
+  <meta property="og:title" content="Split Bill with Tax and Tip Calculator — TableSplit" />
+  <meta property="og:description" content="Free US split bill with tax and tip calculator. Compare pre-tax vs. post-tax tipping, pick a percentage, split group dinner checks, and copy totals." />
+  <meta property="og:url" content="https://tablesplit.example.com/" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Split Bill with Tax and Tip Calculator — TableSplit" />
+  <meta name="twitter:description" content="Free US split bill with tax and tip calculator. Compare pre-tax vs. post-tax tipping, pick a percentage, split group dinner checks, and copy totals." />
+
+  <!-- Inline SVG Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23047857'/%3E%3Cpath d='M18 14h28a2 2 0 0 1 2 2v34l-5.5-3.5L37 50l-5-3.5L27 50l-5.5-3.5L16 50V16a2 2 0 0 1 2-2Z' fill='%23ffffff'/%3E%3Cpath d='M32 21v20M36.5 25.5c0-2-2-3.2-4.5-3.2s-4.5 1.2-4.5 3.1c0 4.2 9 2.3 9 7.1 0 2.1-2 3.4-4.5 3.4s-4.5-1.3-4.5-3.4' fill='none' stroke='%23047857' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+
+  <!-- Structured Data: WebApplication -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "TableSplit — Split Bill with Tax and Tip Calculator",
+    "url": "https://tablesplit.example.com/",
+    "applicationCategory": "FinanceApplication",
+    "applicationSubCategory": "Utility",
+    "operatingSystem": "All",
+    "inLanguage": "en-US",
+    "description": "A fast US restaurant bill splitter and pre-tax tip calculator that computes sales tax, tip percentage, per-person totals, and optional dollar rounding in real time.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "featureList": [
+      "Split bill with tax and tip in real time",
+      "Pre-tax vs. post-tax tip toggle",
+      "Sales tax input by percentage or flat dollar amount",
+      "Standard US tip presets (15%, 18%, 20%, 22%, 25%) and custom percentage",
+      "Round each person's share up to the nearest dollar",
+      "One-tap copyable summary for Venmo, iMessage, and WhatsApp"
+    ]
+  }
+  </script>
+
+  <!-- Structured Data: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Should you tip before or after sales tax in the US?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Standard US dining etiquette is to calculate your tip on the pre-tax subtotal. Sales tax goes to your city or state government rather than the restaurant or your server, so tipping on the food and drink subtotal is the traditional benchmark. That said, tipping on the post-tax total is also common—especially when people double the tax or use printed receipt suggestions—and adds roughly 1% to 2% to the bill."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do you split a restaurant bill evenly with tax and tip?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Start with the pre-tax subtotal from your receipt, add the sales tax (either as a percentage or the exact dollar amount printed on the check), calculate the tip on your preferred base, and divide the combined grand total by the number of diners. This calculator breaks out tax per person, tip per person, and the exact total each person owes."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the standard restaurant tip percentage in the US?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "For sit-down table service in the United States, 18% to 20% of the pre-tax subtotal is the standard range for good service. Diners typically leave 15% for basic or adequate service and 22% to 25% for standout service, complex orders, or busy holiday shifts."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What if the restaurant already added an automatic gratuity for a large group?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Many US restaurants automatically add an 18% or 20% service charge for parties of six or more. Check the bottom of your receipt before entering a tip percentage. If an automatic gratuity is already included in the check total, set the tip percentage to 0% (or only add a small extra percentage like 2% to 5% if you want to leave more) so your group does not accidentally double-tip."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does the round up to the nearest dollar option work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "When you turn on Round Up Per Person, each diner's share is rounded up to the next whole dollar—for example, $38.48 becomes $39.00. This makes Venmo requests and cash splits cleaner, and the extra change simply goes to your server as a small bonus on top of the base tip."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg-canvas: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-subtle: #f1f5f9;
+      --bg-dark: #0f172a;
+      --bg-dark-raised: #1e293b;
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #64748b;
+      --text-on-dark: #f8fafc;
+      --text-on-dark-muted: #94a3b8;
+      --border-hairline: #e2e8f0;
+      --border-strong: #cbd5e1;
+      --border-dark: #334155;
+      --accent: #047857;
+      --accent-hover: #065f46;
+      --accent-soft: #ecfdf5;
+      --accent-soft-border: #a7f3d0;
+      --accent-on-dark: #34d399;
+      --focus-ring: rgba(4, 120, 87, 0.28);
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--text-primary);
+      background-color: var(--bg-canvas);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .skip-link {
+      position: absolute;
+      top: -48px;
+      left: 16px;
+      background: var(--bg-dark);
+      color: #ffffff;
+      padding: 10px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      z-index: 100;
+    }
+
+    .skip-link:focus {
+      top: 12px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Header — 3-Zone Top Bar Contract */
+    .site-header {
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border-hairline);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      min-height: 60px;
+      padding: 10px 0;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .brand-mark {
+      width: 26px;
+      height: 26px;
+      flex-shrink: 0;
+    }
+
+    .site-nav {
+      display: none;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .site-nav a {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+      padding: 4px 0;
+      border-bottom: 2px solid transparent;
+      transition: color 150ms var(--ease-out), border-color 150ms var(--ease-out);
+    }
+
+    .site-nav a:hover,
+    .site-nav a:focus-visible {
+      color: var(--text-primary);
+      border-bottom-color: var(--accent);
+    }
+
+    .header-action {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 8px 16px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-hairline);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: background-color 150ms var(--ease-out), border-color 150ms var(--ease-out), transform 120ms var(--ease-out);
+    }
+
+    .header-action:hover {
+      background: #e2e8f0;
+      border-color: var(--border-strong);
+    }
+
+    .header-action:active {
+      transform: scale(0.98);
+    }
+
+    /* Main Hero & Calculator */
+    .hero-section {
+      padding: 28px 0 40px;
+    }
+
+    .hero-header {
+      max-width: 720px;
+      margin-bottom: 24px;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: clamp(1.65rem, 3.2vw, 2.35rem);
+      font-weight: 700;
+      line-height: 1.18;
+      letter-spacing: -0.028em;
+      color: var(--text-primary);
+      text-wrap: balance;
+    }
+
+    .hero-lead {
+      margin: 0;
+      font-size: 15.5px;
+      line-height: 1.55;
+      color: var(--text-secondary);
+      max-width: 62ch;
+    }
+
+    .calc-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    /* Calculator Inputs Panel */
+    .panel-inputs {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-hairline);
+      border-radius: var(--radius-lg);
+      padding: 22px 20px;
+    }
+
+    .field-group {
+      padding: 15px 0;
+      border-bottom: 1px solid var(--border-hairline);
+    }
+
+    .field-group:first-child {
+      padding-top: 0;
+    }
+
+    .field-group:last-child {
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .field-row-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .field-label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+
+    .field-row-head .field-label {
+      margin-bottom: 0;
+    }
+
+    .field-hint {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    /* Numeric Input Box */
+    .input-shell {
+      position: relative;
+      display: flex;
+      align-items: center;
+      background: var(--bg-surface);
+      border: 1.5px solid var(--border-strong);
+      border-radius: var(--radius-md);
+      min-height: 52px;
+      transition: border-color 150ms var(--ease-out), box-shadow 150ms var(--ease-out);
+    }
+
+    .input-shell:focus-within {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--focus-ring);
+    }
+
+    .input-affix {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 14px;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-muted);
+      user-select: none;
+      flex-shrink: 0;
+    }
+
+    .input-affix.is-hidden {
+      display: none;
+    }
+
+    .num-input {
+      width: 100%;
+      min-width: 0;
+      height: 50px;
+      padding: 10px 14px;
+      font-family: inherit;
+      font-size: 20px;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+      color: var(--text-primary);
+      background: transparent;
+      border: none;
+      outline: none;
+      appearance: textfield;
+      -moz-appearance: textfield;
+    }
+
+    .input-shell .input-affix:not(.is-hidden) + .num-input {
+      padding-left: 0;
+    }
+
+    .num-input::placeholder {
+      color: #94a3b8;
+      font-weight: 500;
+    }
+
+    .num-input::-webkit-outer-spin-button,
+    .num-input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    /* Segmented Control for Tax % / $ */
+    .segmented {
+      display: inline-flex;
+      background: var(--bg-subtle);
+      border-radius: var(--radius-sm);
+      padding: 3px;
+      gap: 2px;
+    }
+
+    .seg-btn {
+      min-height: 36px;
+      min-width: 56px;
+      padding: 6px 12px;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background-color 150ms var(--ease-out), color 150ms var(--ease-out), box-shadow 150ms var(--ease-out);
+    }
+
+    .seg-btn[aria-pressed="true"] {
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08);
+    }
+
+    /* Tip Presets & Custom */
+    .tip-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .tip-btn {
+      min-height: 46px;
+      padding: 8px 10px;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+      color: var(--text-primary);
+      background: var(--bg-subtle);
+      border: 1.5px solid transparent;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background-color 150ms var(--ease-out), border-color 150ms var(--ease-out), color 150ms var(--ease-out), transform 120ms var(--ease-out);
+    }
+
+    .tip-btn:hover {
+      background: #e2e8f0;
+    }
+
+    .tip-btn:active {
+      transform: scale(0.98);
+    }
+
+    .tip-btn[aria-pressed="true"] {
+      background: var(--accent);
+      color: #ffffff;
+      border-color: var(--accent);
+    }
+
+    .custom-tip-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+      min-height: 46px;
+      background: var(--bg-surface);
+      border: 1.5px solid var(--border-strong);
+      border-radius: var(--radius-md);
+      transition: border-color 150ms var(--ease-out), box-shadow 150ms var(--ease-out);
+    }
+
+    .custom-tip-wrap.is-active {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    .custom-tip-wrap:focus-within {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--focus-ring);
+    }
+
+    .custom-tip-input {
+      width: 100%;
+      min-width: 0;
+      height: 44px;
+      padding: 6px 24px 6px 10px;
+      font-family: inherit;
+      font-size: 14.5px;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+      color: var(--text-primary);
+      background: transparent;
+      border: none;
+      outline: none;
+      text-align: left;
+      appearance: textfield;
+      -moz-appearance: textfield;
+    }
+
+    .custom-tip-input::placeholder {
+      color: var(--text-muted);
+      font-weight: 500;
+      font-size: 13.5px;
+    }
+
+    .custom-tip-input::-webkit-outer-spin-button,
+    .custom-tip-input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    .custom-tip-pct {
+      position: absolute;
+      right: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-muted);
+      pointer-events: none;
+    }
+
+    /* People Stepper */
+    .stepper-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .stepper-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      font-family: inherit;
+      font-size: 22px;
+      font-weight: 600;
+      line-height: 1;
+      color: var(--text-primary);
+      background: var(--bg-subtle);
+      border: 1.5px solid var(--border-hairline);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background-color 150ms var(--ease-out), border-color 150ms var(--ease-out), transform 120ms var(--ease-out);
+    }
+
+    .stepper-btn:hover:not(:disabled) {
+      background: #e2e8f0;
+      border-color: var(--border-strong);
+    }
+
+    .stepper-btn:active:not(:disabled) {
+      transform: scale(0.96);
+    }
+
+    .stepper-btn:disabled {
+      opacity: 0.42;
+      cursor: not-allowed;
+    }
+
+    .stepper-input-shell {
+      flex: 1;
+      min-height: 48px;
+    }
+
+    .stepper-input-shell .num-input {
+      height: 46px;
+      text-align: center;
+      font-size: 18px;
+    }
+
+    /* Toggle Switch Rows */
+    .switch-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .switch-copy {
+      min-width: 0;
+    }
+
+    .switch-title {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .switch-sub {
+      display: block;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .switch-btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      width: 52px;
+      height: 30px;
+      padding: 3px;
+      background: #cbd5e1;
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background-color 180ms var(--ease-out);
+    }
+
+    /* Expand touch hitbox to >= 44px vertically without altering visual switch size */
+    .switch-btn::after {
+      content: "";
+      position: absolute;
+      inset: -8px -4px;
+    }
+
+    .switch-btn[aria-checked="true"] {
+      background: var(--accent);
+    }
+
+    .switch-thumb {
+      width: 24px;
+      height: 24px;
+      background: #ffffff;
+      border-radius: 50%;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.25);
+      transform: translateX(0);
+      transition: transform 180ms var(--ease-out);
+    }
+
+    .switch-btn[aria-checked="true"] .switch-thumb {
+      transform: translateX(22px);
+    }
+
+    .switches-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* Results Dashboard Panel */
+    .panel-results {
+      background: var(--bg-dark);
+      color: var(--text-on-dark);
+      border-radius: var(--radius-lg);
+      padding: 24px 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .result-hero {
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--border-dark);
+    }
+
+    .result-eyebrow {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 13.5px;
+      font-weight: 500;
+      color: var(--accent-on-dark);
+      margin-bottom: 6px;
+    }
+
+    .result-split-meta {
+      font-size: 13px;
+      color: var(--text-on-dark-muted);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .result-per-person {
+      margin: 0;
+      font-size: clamp(2.5rem, 6vw, 3.25rem);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      font-variant-numeric: tabular-nums;
+      color: #ffffff;
+    }
+
+    .result-note {
+      margin: 8px 0 0;
+      min-height: 20px;
+      font-size: 13px;
+      color: var(--text-on-dark-muted);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .result-note.is-highlight {
+      color: var(--accent-on-dark);
+    }
+
+    .breakdown-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .breakdown-item {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 13px 0;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.14);
+      font-size: 14.5px;
+    }
+
+    .breakdown-item:last-child {
+      border-bottom: none;
+    }
+
+    .tax-tip-delta {
+      margin: 6px 0 0;
+      min-height: 20px;
+      font-size: 12.5px;
+      color: var(--text-on-dark-muted);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .breakdown-label {
+      color: #cbd5e1;
+    }
+
+    .breakdown-label small {
+      display: block;
+      font-size: 12.5px;
+      color: var(--text-on-dark-muted);
+    }
+
+    .breakdown-values {
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+      flex-shrink: 0;
+    }
+
+    .breakdown-primary {
+      display: block;
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    .breakdown-secondary {
+      display: block;
+      font-size: 12.5px;
+      color: var(--text-on-dark-muted);
+    }
+
+    .grand-total-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-dark);
+    }
+
+    .grand-total-label {
+      font-size: 15px;
+      font-weight: 600;
+      color: #e2e8f0;
+    }
+
+    .grand-total-sub {
+      display: block;
+      font-size: 12.5px;
+      font-weight: 400;
+      color: var(--text-on-dark-muted);
+    }
+
+    .grand-total-amount {
+      font-size: 24px;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      color: #ffffff;
+    }
+
+    /* Action Buttons */
+    .result-actions {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      padding-top: 4px;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 48px;
+      padding: 12px 18px;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 600;
+      color: #ffffff;
+      background: var(--accent);
+      border: none;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background-color 150ms var(--ease-out), transform 120ms var(--ease-out);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+    }
+
+    .btn-primary:active {
+      transform: scale(0.98);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 12px 18px;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 600;
+      color: #e2e8f0;
+      background: var(--bg-dark-raised);
+      border: 1px solid var(--border-dark);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background-color 150ms var(--ease-out), border-color 150ms var(--ease-out), transform 120ms var(--ease-out);
+    }
+
+    .btn-secondary:hover {
+      background: #334155;
+      border-color: #475569;
+    }
+
+    .btn-secondary:active {
+      transform: scale(0.98);
+    }
+
+    .action-feedback {
+      min-height: 20px;
+      font-size: 13px;
+      color: var(--accent-on-dark);
+      text-align: center;
+    }
+
+    /* Focus Visible States */
+    a:focus-visible,
+    button:focus-visible,
+    summary:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .panel-results button:focus-visible {
+      outline-color: var(--accent-on-dark);
+    }
+
+    /* Editorial Guide Sections */
+    .guide-section {
+      padding: 40px 0;
+      border-top: 1px solid var(--border-hairline);
+    }
+
+    .guide-section h2 {
+      margin: 0 0 12px;
+      font-size: clamp(1.3rem, 2.3vw, 1.65rem);
+      font-weight: 700;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      text-wrap: balance;
+    }
+
+    .section-intro {
+      margin: 0 0 24px;
+      color: var(--text-secondary);
+      max-width: 68ch;
+    }
+
+    /* How to Use Steps */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .step-item {
+      padding-top: 16px;
+      border-top: 1px solid var(--border-hairline);
+    }
+
+    .step-num {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    .step-item h3 {
+      margin: 0 0 6px;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .step-item p {
+      margin: 0;
+      font-size: 14.5px;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+
+    /* Pre-tax vs Post-tax Two Column Editorial */
+    .etiquette-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .prose-col p {
+      margin: 0 0 14px;
+      font-size: 15.5px;
+      color: var(--text-secondary);
+      max-width: 66ch;
+    }
+
+    .prose-col p:last-child {
+      margin-bottom: 0;
+    }
+
+    .example-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-hairline);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+    }
+
+    .example-box h3 {
+      margin: 0 0 4px;
+      font-size: 15.5px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .example-sub {
+      margin: 0 0 16px;
+      font-size: 13.5px;
+      color: var(--text-muted);
+    }
+
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .compare-table th,
+    .compare-table td {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border-hairline);
+      text-align: left;
+    }
+
+    .compare-table th:last-child,
+    .compare-table td:last-child {
+      text-align: right;
+    }
+
+    .compare-table tr:last-child td {
+      border-bottom: none;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .compare-table th {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    /* Reference Table */
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-hairline);
+      border-radius: var(--radius-lg);
+    }
+
+    .tip-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 540px;
+      font-size: 14.5px;
+    }
+
+    .tip-table th,
+    .tip-table td {
+      padding: 14px 18px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-hairline);
+      vertical-align: top;
+    }
+
+    .tip-table thead th {
+      background: var(--bg-subtle);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    .tip-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .tip-table td:first-child {
+      font-weight: 600;
+      color: var(--text-primary);
+      white-space: nowrap;
+    }
+
+    .tip-table td:nth-child(2) {
+      font-weight: 600;
+      color: var(--accent);
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+
+    .tip-table td:last-child {
+      color: var(--text-secondary);
+    }
+
+    /* FAQ Accordion */
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      border-top: 1px solid var(--border-hairline);
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--border-hairline);
+    }
+
+    .faq-item summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px 0;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-primary);
+      cursor: pointer;
+      list-style: none;
+    }
+
+    .faq-item summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-chevron {
+      width: 18px;
+      height: 18px;
+      color: var(--text-muted);
+      flex-shrink: 0;
+      transition: transform 180ms var(--ease-out);
+    }
+
+    .faq-item[open] .faq-chevron {
+      transform: rotate(180deg);
+      color: var(--accent);
+    }
+
+    .faq-answer {
+      padding: 0 0 18px;
+      max-width: 72ch;
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.62;
+    }
+
+    /* Footer */
+    .site-footer {
+      border-top: 1px solid var(--border-hairline);
+      background: var(--bg-surface);
+      padding: 28px 0;
+      font-size: 13.5px;
+      color: var(--text-muted);
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      justify-content: space-between;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+    }
+
+    .footer-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+    }
+
+    .footer-links a:hover {
+      color: var(--text-primary);
+      text-decoration: underline;
+    }
+
+    /* Responsive Breakpoints */
+    @media (min-width: 640px) {
+      .tip-grid {
+        grid-template-columns: repeat(5, minmax(0, 1fr)) minmax(92px, 1.35fr);
+      }
+
+      .steps-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 24px 28px;
+      }
+
+      .footer-inner {
+        flex-direction: row;
+        align-items: center;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .site-nav {
+        display: flex;
+      }
+
+      .hero-section {
+        padding: 36px 0 52px;
+      }
+
+      .panel-inputs {
+        padding: 28px;
+      }
+
+      .panel-results {
+        padding: 30px 28px;
+      }
+
+      .guide-section {
+        padding: 52px 0;
+      }
+    }
+
+    @media (min-width: 960px) {
+      .calc-grid {
+        grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+        gap: 28px;
+        align-items: stretch;
+      }
+
+      .steps-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .etiquette-layout {
+        grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+        gap: 36px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+      *, *::before, *::after {
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#calculator">Skip to calculator</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#calculator" aria-label="TableSplit home">
+        <svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+          <rect width="64" height="64" rx="14" fill="#047857" />
+          <path d="M18 14h28a2 2 0 0 1 2 2v34l-5.5-3.5L37 50l-5-3.5L27 50l-5.5-3.5L16 50V16a2 2 0 0 1 2-2Z" fill="#ffffff" />
+          <path d="M32 21v20M36.5 25.5c0-2-2-3.2-4.5-3.2s-4.5 1.2-4.5 3.1c0 4.2 9 2.3 9 7.1 0 2.1-2 3.4-4.5 3.4s-4.5-1.3-4.5-3.4" fill="none" stroke="#047857" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        TableSplit
+      </a>
+
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="#calculator">Calculator</a>
+        <a href="#how-to-use">How It Works</a>
+        <a href="#tipping-guide">Tipping Chart</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+
+      <button type="button" class="header-action" id="header-reset-btn">New Split</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero-section" id="calculator" aria-labelledby="page-title">
+      <div class="container">
+        <div class="hero-header">
+          <h1 id="page-title">Split Bill with Tax and Tip Calculator</h1>
+          <p class="hero-lead">Figure out each person's exact share at the table. Enter your pre-tax check amount, add local sales tax, pick a tip rate, and copy the breakdown for your group text or Venmo.</p>
+        </div>
+
+        <div class="calc-grid">
+          <!-- Inputs Column -->
+          <form class="panel-inputs" id="calc-form" novalidate aria-label="Restaurant bill split calculator inputs">
+            <!-- Bill Subtotal -->
+            <div class="field-group">
+              <label class="field-label" for="subtotal-input">Bill Subtotal (Before Tax)</label>
+              <div class="input-shell">
+                <span class="input-affix" aria-hidden="true">$</span>
+                <input
+                  id="subtotal-input"
+                  class="num-input"
+                  type="text"
+                  inputmode="decimal"
+                  autocomplete="off"
+                  placeholder="0.00"
+                  aria-describedby="subtotal-hint"
+                />
+              </div>
+              <div class="field-hint" id="subtotal-hint">Use the food and drink subtotal printed above the tax line on your check.</div>
+            </div>
+
+            <!-- Sales Tax -->
+            <div class="field-group">
+              <div class="field-row-head">
+                <label class="field-label" for="tax-input" id="tax-label">Sales Tax (%)</label>
+                <div class="segmented" role="group" aria-label="Sales tax input mode">
+                  <button type="button" class="seg-btn" id="tax-mode-percent" data-tax-mode="percent" aria-pressed="true">% Rate</button>
+                  <button type="button" class="seg-btn" id="tax-mode-dollar" data-tax-mode="dollar" aria-pressed="false">$ Flat</button>
+                </div>
+              </div>
+              <div class="input-shell">
+                <span class="input-affix is-hidden" id="tax-prefix" aria-hidden="true">$</span>
+                <input
+                  id="tax-input"
+                  class="num-input"
+                  type="text"
+                  inputmode="decimal"
+                  autocomplete="off"
+                  placeholder="8.25"
+                  aria-labelledby="tax-label"
+                />
+                <span class="input-affix" id="tax-suffix" aria-hidden="true">%</span>
+              </div>
+            </div>
+
+            <!-- Tip Percentage -->
+            <div class="field-group">
+              <div class="field-row-head">
+                <span class="field-label" id="tip-group-label">Restaurant Tip Percentage</span>
+                <span class="field-hint" id="active-tip-readout" style="margin:0;">20% selected</span>
+              </div>
+              <div class="tip-grid" role="group" aria-labelledby="tip-group-label">
+                <button type="button" class="tip-btn" data-tip="15" aria-pressed="false">15%</button>
+                <button type="button" class="tip-btn" data-tip="18" aria-pressed="false">18%</button>
+                <button type="button" class="tip-btn" data-tip="20" aria-pressed="true">20%</button>
+                <button type="button" class="tip-btn" data-tip="22" aria-pressed="false">22%</button>
+                <button type="button" class="tip-btn" data-tip="25" aria-pressed="false">25%</button>
+                <div class="custom-tip-wrap" id="custom-tip-wrap">
+                  <label class="sr-only" for="custom-tip-input">Custom tip percentage</label>
+                  <input
+                    id="custom-tip-input"
+                    class="custom-tip-input"
+                    type="text"
+                    inputmode="decimal"
+                    autocomplete="off"
+                    placeholder="Custom"
+                    aria-label="Custom tip percentage"
+                  />
+                  <span class="custom-tip-pct" aria-hidden="true">%</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Split Between -->
+            <div class="field-group">
+              <label class="field-label" for="people-input">Split Between (People)</label>
+              <div class="stepper-row">
+                <button type="button" class="stepper-btn" id="people-dec" aria-label="Decrease number of people">−</button>
+                <div class="input-shell stepper-input-shell">
+                  <input
+                    id="people-input"
+                    class="num-input"
+                    type="number"
+                    inputmode="numeric"
+                    min="1"
+                    max="99"
+                    step="1"
+                    value="2"
+                    aria-label="Number of people splitting the bill"
+                  />
+                </div>
+                <button type="button" class="stepper-btn" id="people-inc" aria-label="Increase number of people">+</button>
+              </div>
+            </div>
+
+            <!-- Pre-Tax & Rounding Switches -->
+            <div class="field-group">
+              <div class="switches-stack">
+                <div class="switch-row">
+                  <div class="switch-copy">
+                    <span class="switch-title" id="pretax-label">Calculate tip on pre-tax subtotal</span>
+                    <span class="switch-sub" id="pretax-status">Pre-tax active — standard US etiquette</span>
+                  </div>
+                  <button
+                    type="button"
+                    class="switch-btn"
+                    id="pretax-toggle"
+                    role="switch"
+                    aria-checked="true"
+                    aria-labelledby="pretax-label"
+                    aria-describedby="pretax-status"
+                  >
+                    <span class="switch-thumb" aria-hidden="true"></span>
+                  </button>
+                </div>
+
+                <div class="switch-row">
+                  <div class="switch-copy">
+                    <span class="switch-title" id="round-label">Round up per person to nearest $1</span>
+                    <span class="switch-sub" id="round-status">Off — showing exact cents</span>
+                  </div>
+                  <button
+                    type="button"
+                    class="switch-btn"
+                    id="round-toggle"
+                    role="switch"
+                    aria-checked="false"
+                    aria-labelledby="round-label"
+                    aria-describedby="round-status"
+                  >
+                    <span class="switch-thumb" aria-hidden="true"></span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+
+          <!-- Instant Results Dashboard -->
+          <section class="panel-results" aria-label="Calculated bill split summary" aria-live="polite">
+            <div>
+              <div class="result-hero">
+                <div class="result-eyebrow">
+                  <span>Total Per Person</span>
+                  <span class="result-split-meta" id="res-people-meta">Split 2 ways</span>
+                </div>
+                <p class="result-per-person" id="res-per-person">$0.00</p>
+                <p class="result-note" id="res-note">Enter your check subtotal to see each share.</p>
+              </div>
+
+              <ul class="breakdown-list" style="margin-top:18px;">
+                <li class="breakdown-item">
+                  <span class="breakdown-label">
+                    Bill Subtotal
+                    <small id="res-sub-meta">Food &amp; drinks before tax</small>
+                  </span>
+                  <span class="breakdown-values">
+                    <span class="breakdown-primary" id="res-sub-person">$0.00 / person</span>
+                    <span class="breakdown-secondary" id="res-sub-total">$0.00 total</span>
+                  </span>
+                </li>
+
+                <li class="breakdown-item">
+                  <span class="breakdown-label">
+                    Sales Tax
+                    <small id="res-tax-meta">0% rate</small>
+                  </span>
+                  <span class="breakdown-values">
+                    <span class="breakdown-primary" id="res-tax-person">$0.00 / person</span>
+                    <span class="breakdown-secondary" id="res-tax-total">$0.00 total</span>
+                  </span>
+                </li>
+
+                <li class="breakdown-item">
+                  <span class="breakdown-label">
+                    Tip
+                    <small id="res-tip-meta">20% on pre-tax subtotal</small>
+                  </span>
+                  <span class="breakdown-values">
+                    <span class="breakdown-primary" id="res-tip-person">$0.00 / person</span>
+                    <span class="breakdown-secondary" id="res-tip-total">$0.00 total</span>
+                  </span>
+                </li>
+              </ul>
+              <p class="tax-tip-delta" id="res-tax-tip-delta"></p>
+            </div>
+
+            <div>
+              <div class="grand-total-row">
+                <div>
+                  <span class="grand-total-label">Grand Total</span>
+                  <span class="grand-total-sub" id="res-grand-sub">Subtotal + tax + tip</span>
+                </div>
+                <span class="grand-total-amount" id="res-grand-total">$0.00</span>
+              </div>
+
+              <div class="result-actions" style="margin-top:18px;">
+                <button type="button" class="btn-primary" id="copy-btn">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                  </svg>
+                  <span id="copy-btn-text">Copy Summary</span>
+                </button>
+                <button type="button" class="btn-secondary" id="reset-btn">Reset</button>
+              </div>
+              <div class="action-feedback" id="action-feedback" role="status" aria-live="polite"></div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <!-- Editorial Guide Section 1: How to Use -->
+    <section class="guide-section" id="how-to-use" aria-labelledby="how-heading">
+      <div class="container">
+        <h2 id="how-heading">How to Use This Group Dinner Bill Splitter</h2>
+        <p class="section-intro">No mental math at the end of a long meal. Follow four quick steps to check the receipt and send everyone their share.</p>
+
+        <ol class="steps-grid">
+          <li class="step-item">
+            <span class="step-num">01</span>
+            <h3>Enter the pre-tax subtotal</h3>
+            <p>Look for the "Subtotal" line on your restaurant receipt before sales tax is added, and type that amount into the first box.</p>
+          </li>
+          <li class="step-item">
+            <span class="step-num">02</span>
+            <h3>Add sales tax as % or $</h3>
+            <p>Type your local sales tax rate (such as 8.25% or 8.875%), or switch to "$ Flat" and type the exact dollar tax printed on the check.</p>
+          </li>
+          <li class="step-item">
+            <span class="step-num">03</span>
+            <h3>Choose your tip rate</h3>
+            <p>Tap a US preset from 15% to 25% or enter a custom tip percentage. Keep the pre-tax switch on for standard US etiquette, or flip it off to tip on the post-tax total.</p>
+          </li>
+          <li class="step-item">
+            <span class="step-num">04</span>
+            <h3>Set headcount and share</h3>
+            <p>Adjust the number of diners, turn on whole-dollar rounding if you want clean Venmo numbers, and tap "Copy Summary" to paste into your group chat.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Editorial Guide Section 2: Pre-Tax vs Post-Tax -->
+    <article class="guide-section" id="pre-tax-tipping" aria-labelledby="pretax-heading">
+      <div class="container">
+        <h2 id="pretax-heading">Pre-Tax vs. Post-Tax Tipping in the US</h2>
+        <div class="etiquette-layout">
+          <div class="prose-col">
+            <p>In the United States, traditional dining etiquette—and what most hospitality guides recommend—is to calculate your tip on the <strong>pre-tax subtotal</strong>. Because sales tax is collected for city and state budgets rather than restaurant wages, using a pre-tax tip calculator ties your gratuity directly to the food, drinks, and service you received.</p>
+            <p>Why do printed "Suggested Tip" lines at the bottom of many receipts look higher? A large share of point-of-sale terminals compute those suggested 18%, 20%, and 22% numbers on the <em>post-tax</em> total. In cities with 9% to 11% restaurant taxes—like Chicago, Seattle, or Los Angeles—tipping 20% after tax effectively works out to nearly 22% on the pre-tax check.</p>
+            <p>Either approach is fine if you prefer to be generous or want simpler math. Use the toggle in this restaurant tip calculator by percentage to see both numbers side by side before signing the receipt.</p>
+          </div>
+
+          <div class="example-box">
+            <h3>Example: $150 Dinner with 9% Sales Tax</h3>
+            <p class="example-sub">Comparing a 20% tip split evenly among 4 people</p>
+            <table class="compare-table">
+              <thead>
+                <tr>
+                  <th scope="col">Line Item</th>
+                  <th scope="col">Pre-Tax Tip</th>
+                  <th scope="col">Post-Tax Tip</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Check Subtotal</td>
+                  <td>$150.00</td>
+                  <td>$150.00</td>
+                </tr>
+                <tr>
+                  <td>Sales Tax (9%)</td>
+                  <td>$13.50</td>
+                  <td>$13.50</td>
+                </tr>
+                <tr>
+                  <td>20% Tip</td>
+                  <td>$30.00</td>
+                  <td>$32.70</td>
+                </tr>
+                <tr>
+                  <td>Grand Total</td>
+                  <td>$193.50</td>
+                  <td>$196.20</td>
+                </tr>
+                <tr>
+                  <td>Each Person (4)</td>
+                  <td>$48.38</td>
+                  <td>$49.05</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- Editorial Guide Section 3: Reference Table -->
+    <section class="guide-section" id="tipping-guide" aria-labelledby="table-heading">
+      <div class="container">
+        <h2 id="table-heading">Quick US Restaurant Tipping Reference Table</h2>
+        <p class="section-intro">Standard tipping ranges across common US dining and bar situations, based on the pre-tax subtotal.</p>
+
+        <div class="table-wrap">
+          <table class="tip-table">
+            <thead>
+              <tr>
+                <th scope="col">Dining Setting</th>
+                <th scope="col">Typical US Tip</th>
+                <th scope="col">Practical Guidance</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Sit-down restaurant (standard)</td>
+                <td>18% – 20%</td>
+                <td>Expected baseline for attentive full table service across the US.</td>
+              </tr>
+              <tr>
+                <td>Great or complex service</td>
+                <td>22% – 25%</td>
+                <td>Common for fine dining, busy weekend nights, or accommodating special requests.</td>
+              </tr>
+              <tr>
+                <td>Basic or slow service</td>
+                <td>15%</td>
+                <td>Traditional lower end for sit-down service when things felt bare-minimum.</td>
+              </tr>
+              <tr>
+                <td>Large groups (6+ diners)</td>
+                <td>18% – 20%</td>
+                <td>Check the receipt first—many spots add an automatic gratuity so you do not double-tip.</td>
+              </tr>
+              <tr>
+                <td>Bars &amp; breweries</td>
+                <td>$1–$2/drink or 18%–20%</td>
+                <td>$1–$2 per beer or wine pour; 20% on an open tab or crafted cocktails.</td>
+              </tr>
+              <tr>
+                <td>Takeout &amp; counter service</td>
+                <td>0% – 10%</td>
+                <td>Optional for simple pickup; 10% is appreciated for large or carefully packed group orders.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Editorial Guide Section 4: FAQ -->
+    <section class="guide-section" id="faq" aria-labelledby="faq-heading">
+      <div class="container">
+        <h2 id="faq-heading">Frequently Asked Questions</h2>
+
+        <div class="faq-list">
+          <details class="faq-item" open>
+            <summary>
+              <span>Should you tip before or after sales tax in the US?</span>
+              <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </summary>
+            <div class="faq-answer">Standard US dining etiquette is to calculate your tip on the pre-tax subtotal. Sales tax goes to your city or state government rather than the restaurant or your server, so tipping on the food and drink subtotal is the traditional benchmark. That said, tipping on the post-tax total is also common—especially when people double the tax or use printed receipt suggestions—and adds roughly 1% to 2% to the bill.</div>
+          </details>
+
+          <details class="faq-item">
+            <summary>
+              <span>How do you split a restaurant bill evenly with tax and tip?</span>
+              <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </summary>
+            <div class="faq-answer">Start with the pre-tax subtotal from your receipt, add the sales tax (either as a percentage or the exact dollar amount printed on the check), calculate the tip on your preferred base, and divide the combined grand total by the number of diners. This calculator breaks out tax per person, tip per person, and the exact total each person owes.</div>
+          </details>
+
+          <details class="faq-item">
+            <summary>
+              <span>What is the standard restaurant tip percentage in the US?</span>
+              <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </summary>
+            <div class="faq-answer">For sit-down table service in the United States, 18% to 20% of the pre-tax subtotal is the standard range for good service. Diners typically leave 15% for basic or adequate service and 22% to 25% for standout service, complex orders, or busy holiday shifts.</div>
+          </details>
+
+          <details class="faq-item">
+            <summary>
+              <span>What if the restaurant already added an automatic gratuity for a large group?</span>
+              <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </summary>
+            <div class="faq-answer">Many US restaurants automatically add an 18% or 20% service charge for parties of six or more. Check the bottom of your receipt before entering a tip percentage. If an automatic gratuity is already included in the check total, set the tip percentage to 0% (or only add a small extra percentage like 2% to 5% if you want to leave more) so your group does not accidentally double-tip.</div>
+          </details>
+
+          <details class="faq-item">
+            <summary>
+              <span>How does the round up to the nearest dollar option work?</span>
+              <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </summary>
+            <div class="faq-answer">When you turn on Round Up Per Person, each diner's share is rounded up to the next whole dollar—for example, $38.48 becomes $39.00. This makes Venmo requests and cash splits cleaner, and the extra change simply goes to your server as a small bonus on top of the base tip.</div>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>TableSplit — US Split Bill with Tax &amp; Tip Calculator. Runs locally in your browser; no receipt data is saved or sent.</div>
+      <nav class="footer-links" aria-label="Footer links">
+        <a href="#calculator">Calculator</a>
+        <a href="#how-to-use">How It Works</a>
+        <a href="#pre-tax-tipping">Pre-Tax Guide</a>
+        <a href="#tipping-guide">Tipping Table</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      "use strict";
+
+      /* =====================================================================
+         Pure Calculation Engine (decoupled from DOM for precision & testing)
+         ===================================================================== */
+      var USD_FORMATTER = new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+
+      function formatUSD(amount) {
+        var safe = Number.isFinite(amount) ? amount : 0;
+        if (Math.abs(safe) < 0.0005) safe = 0;
+        return USD_FORMATTER.format(safe);
+      }
+
+      function parseNonNegative(raw) {
+        if (typeof raw === "number") {
+          return Number.isFinite(raw) && raw > 0 ? raw : 0;
+        }
+        var cleaned = String(raw || "").replace(/[^0-9.]/g, "");
+        if (!cleaned) return 0;
+        var parts = cleaned.split(".");
+        var normalized = parts.length > 2 ? parts[0] + "." + parts.slice(1).join("") : cleaned;
+        var num = parseFloat(normalized);
+        return Number.isFinite(num) && num > 0 ? num : 0;
+      }
+
+      function clampPeople(raw) {
+        var parsed = parseInt(String(raw || ""), 10);
+        if (!Number.isFinite(parsed) || parsed < 1) return 1;
+        if (parsed > 99) return 99;
+        return parsed;
+      }
+
+      function calculateBill(input) {
+        var subtotal = parseNonNegative(input.subtotal);
+        var taxMode = input.taxMode === "dollar" ? "dollar" : "percent";
+        var taxValue = parseNonNegative(input.taxValue);
+        var tipPercent = parseNonNegative(input.tipPercent);
+        var tipOnPreTax = input.tipOnPreTax !== false;
+        var people = clampPeople(input.people);
+        var roundUp = Boolean(input.roundUp);
+
+        var totalTax = taxMode === "percent" ? subtotal * (taxValue / 100) : taxValue;
+        var tipBase = tipOnPreTax ? subtotal : subtotal + totalTax;
+        var totalTip = tipBase * (tipPercent / 100);
+        var exactGrandTotal = subtotal + totalTax + totalTip;
+        var exactPerPerson = exactGrandTotal / people;
+
+        var perPersonTotal = exactPerPerson;
+        var grandTotal = exactGrandTotal;
+        var roundingExtra = 0;
+
+        if (roundUp && exactPerPerson > 0) {
+          var roundedCents = Math.round(exactPerPerson * 100) / 100;
+          perPersonTotal = Math.ceil(roundedCents);
+          grandTotal = perPersonTotal * people;
+          roundingExtra = Math.max(0, grandTotal - exactGrandTotal);
+        }
+
+        var effectiveTaxRate = subtotal > 0 ? (totalTax / subtotal) * 100 : (taxMode === "percent" ? taxValue : 0);
+
+        return {
+          subtotal: subtotal,
+          subtotalPerPerson: subtotal / people,
+          taxMode: taxMode,
+          taxValue: taxValue,
+          totalTax: totalTax,
+          taxPerPerson: totalTax / people,
+          effectiveTaxRate: effectiveTaxRate,
+          tipPercent: tipPercent,
+          tipOnPreTax: tipOnPreTax,
+          totalTip: totalTip,
+          tipPerPerson: totalTip / people,
+          people: people,
+          roundUp: roundUp,
+          exactPerPerson: exactPerPerson,
+          exactGrandTotal: exactGrandTotal,
+          perPersonTotal: perPersonTotal,
+          grandTotal: grandTotal,
+          roundingExtra: roundingExtra
+        };
+      }
+
+      function formatPercentLabel(val) {
+        var rounded = Math.round(val * 1000) / 1000;
+        return String(rounded) + "%";
+      }
+
+      function buildShareSummary(res) {
+        var personWord = res.people === 1 ? "1 person" : res.people + " people";
+        var taxDetail = res.taxMode === "percent"
+          ? formatPercentLabel(res.taxValue)
+          : "flat";
+        var tipBaseLabel = res.tipOnPreTax ? "pre-tax" : "post-tax";
+
+        var lines = [
+          "Dinner Bill Split (" + personWord + ")",
+          "Total Per Person: " + formatUSD(res.perPersonTotal),
+          "---",
+          "Subtotal: " + formatUSD(res.subtotal) + " (" + formatUSD(res.subtotalPerPerson) + "/person)",
+          "Tax (" + taxDetail + "): " + formatUSD(res.totalTax) + " (" + formatUSD(res.taxPerPerson) + "/person)",
+          "Tip (" + formatPercentLabel(res.tipPercent) + " " + tipBaseLabel + "): " + formatUSD(res.totalTip) + " (" + formatUSD(res.tipPerPerson) + "/person)",
+          "Grand Total: " + formatUSD(res.grandTotal)
+        ];
+
+        if (res.roundUp && res.roundingExtra >= 0.005) {
+          lines.push("Rounded up to nearest $1 (+" + formatUSD(res.roundingExtra) + " extra toward tip)");
+        }
+
+        return lines.join("\n");
+      }
+
+      // Expose pure engine for automated unit verification without affecting UI
+      if (typeof window !== "undefined") {
+        window.__TableSplitEngine = {
+          calculateBill: calculateBill,
+          buildShareSummary: buildShareSummary,
+          formatUSD: formatUSD,
+          parseNonNegative: parseNonNegative,
+          clampPeople: clampPeople
+        };
+      }
+
+      if (typeof document === "undefined") {
+        return;
+      }
+
+      /* =====================================================================
+         UI State & DOM Wiring
+         ===================================================================== */
+      var PRESET_TIPS = [15, 18, 20, 22, 25];
+
+      var state = {
+        subtotalRaw: "",
+        taxRaw: "",
+        taxMode: "percent",
+        tipPercent: 20,
+        customTipRaw: "",
+        isCustomTip: false,
+        people: 2,
+        tipOnPreTax: true,
+        roundUp: false
+      };
+
+      var els = {
+        form: document.getElementById("calc-form"),
+        subtotalInput: document.getElementById("subtotal-input"),
+        taxInput: document.getElementById("tax-input"),
+        taxLabel: document.getElementById("tax-label"),
+        taxPrefix: document.getElementById("tax-prefix"),
+        taxSuffix: document.getElementById("tax-suffix"),
+        taxModePercent: document.getElementById("tax-mode-percent"),
+        taxModeDollar: document.getElementById("tax-mode-dollar"),
+        tipButtons: Array.prototype.slice.call(document.querySelectorAll(".tip-btn")),
+        customTipWrap: document.getElementById("custom-tip-wrap"),
+        customTipInput: document.getElementById("custom-tip-input"),
+        activeTipReadout: document.getElementById("active-tip-readout"),
+        peopleInput: document.getElementById("people-input"),
+        peopleDec: document.getElementById("people-dec"),
+        peopleInc: document.getElementById("people-inc"),
+        pretaxToggle: document.getElementById("pretax-toggle"),
+        pretaxStatus: document.getElementById("pretax-status"),
+        roundToggle: document.getElementById("round-toggle"),
+        roundStatus: document.getElementById("round-status"),
+        resPerPerson: document.getElementById("res-per-person"),
+        resPeopleMeta: document.getElementById("res-people-meta"),
+        resNote: document.getElementById("res-note"),
+        resSubPerson: document.getElementById("res-sub-person"),
+        resSubTotal: document.getElementById("res-sub-total"),
+        resTaxMeta: document.getElementById("res-tax-meta"),
+        resTaxPerson: document.getElementById("res-tax-person"),
+        resTaxTotal: document.getElementById("res-tax-total"),
+        resTipMeta: document.getElementById("res-tip-meta"),
+        resTipPerson: document.getElementById("res-tip-person"),
+        resTipTotal: document.getElementById("res-tip-total"),
+        resTaxTipDelta: document.getElementById("res-tax-tip-delta"),
+        resGrandTotal: document.getElementById("res-grand-total"),
+        resGrandSub: document.getElementById("res-grand-sub"),
+        copyBtn: document.getElementById("copy-btn"),
+        copyBtnText: document.getElementById("copy-btn-text"),
+        resetBtn: document.getElementById("reset-btn"),
+        headerResetBtn: document.getElementById("header-reset-btn"),
+        actionFeedback: document.getElementById("action-feedback")
+      };
+
+      var feedbackTimer = null;
+
+      function showFeedback(message) {
+        if (feedbackTimer) {
+          clearTimeout(feedbackTimer);
+        }
+        els.actionFeedback.textContent = message;
+        feedbackTimer = setTimeout(function () {
+          els.actionFeedback.textContent = "";
+          els.copyBtnText.textContent = "Copy Summary";
+        }, 2500);
+      }
+
+      function sanitizeDecimalInput(value, maxVal) {
+        var cleaned = value.replace(/[^0-9.]/g, "");
+        var firstDot = cleaned.indexOf(".");
+        if (firstDot !== -1) {
+          cleaned = cleaned.slice(0, firstDot + 1) + cleaned.slice(firstDot + 1).replace(/\./g, "");
+        }
+        if (maxVal !== undefined && cleaned !== "") {
+          var numeric = parseFloat(cleaned);
+          if (Number.isFinite(numeric) && numeric > maxVal) {
+            return String(maxVal);
+          }
+        }
+        return cleaned;
+      }
+
+      function getComputedResult() {
+        return calculateBill({
+          subtotal: state.subtotalRaw,
+          taxMode: state.taxMode,
+          taxValue: state.taxRaw,
+          tipPercent: state.tipPercent,
+          tipOnPreTax: state.tipOnPreTax,
+          people: state.people,
+          roundUp: state.roundUp
+        });
+      }
+
+      function render() {
+        var res = getComputedResult();
+
+        // Tax mode UI
+        var isPercent = state.taxMode === "percent";
+        els.taxModePercent.setAttribute("aria-pressed", String(isPercent));
+        els.taxModeDollar.setAttribute("aria-pressed", String(!isPercent));
+        els.taxLabel.textContent = isPercent ? "Sales Tax (%)" : "Sales Tax ($)";
+        els.taxInput.placeholder = isPercent ? "8.25" : "0.00";
+        els.taxPrefix.classList.toggle("is-hidden", isPercent);
+        els.taxSuffix.classList.toggle("is-hidden", !isPercent);
+
+        // Tip buttons & custom state
+        els.tipButtons.forEach(function (btn) {
+          var val = Number(btn.getAttribute("data-tip"));
+          var active = !state.isCustomTip && state.tipPercent === val;
+          btn.setAttribute("aria-pressed", String(active));
+        });
+        els.customTipWrap.classList.toggle("is-active", state.isCustomTip);
+        els.activeTipReadout.textContent = formatPercentLabel(res.tipPercent) + " selected";
+
+        // People stepper
+        els.peopleDec.disabled = state.people <= 1;
+        els.peopleInc.disabled = state.people >= 99;
+
+        // Toggle switches
+        els.pretaxToggle.setAttribute("aria-checked", String(state.tipOnPreTax));
+        els.pretaxStatus.textContent = state.tipOnPreTax
+          ? "Pre-tax active — standard US etiquette"
+          : "Post-tax active — tipping on subtotal + tax";
+
+        els.roundToggle.setAttribute("aria-checked", String(state.roundUp));
+        els.roundStatus.textContent = state.roundUp
+          ? "On — each person rounds up to next $1"
+          : "Off — showing exact cents";
+
+        // Results dashboard
+        els.resPerPerson.textContent = formatUSD(res.perPersonTotal);
+        els.resPeopleMeta.textContent = res.people === 1 ? "Single diner" : "Split " + res.people + " ways";
+
+        if (res.subtotal <= 0 && res.totalTax <= 0) {
+          els.resNote.textContent = "Enter your check subtotal to see each share.";
+          els.resNote.classList.remove("is-highlight");
+        } else if (res.roundUp && res.roundingExtra >= 0.005) {
+          els.resNote.textContent = "Rounded up from " + formatUSD(res.exactPerPerson) + " (+" + formatUSD(res.roundingExtra) + " extra goes to tip)";
+          els.resNote.classList.add("is-highlight");
+        } else if (res.roundUp) {
+          els.resNote.textContent = "Exact whole-dollar split — no extra change needed.";
+          els.resNote.classList.add("is-highlight");
+        } else {
+          els.resNote.textContent = "Exact split before rounding.";
+          els.resNote.classList.remove("is-highlight");
+        }
+
+        els.resSubPerson.textContent = formatUSD(res.subtotalPerPerson) + " / person";
+        els.resSubTotal.textContent = formatUSD(res.subtotal) + " total";
+
+        if (res.taxMode === "percent") {
+          els.resTaxMeta.textContent = formatPercentLabel(res.taxValue) + " sales tax";
+        } else if (res.subtotal > 0 && res.totalTax > 0) {
+          els.resTaxMeta.textContent = "Flat amount (" + (Math.round(res.effectiveTaxRate * 100) / 100) + "% eff.)";
+        } else {
+          els.resTaxMeta.textContent = "Flat dollar tax";
+        }
+        els.resTaxPerson.textContent = formatUSD(res.taxPerPerson) + " / person";
+        els.resTaxTotal.textContent = formatUSD(res.totalTax) + " total";
+
+        els.resTipMeta.textContent = formatPercentLabel(res.tipPercent) + " on " + (res.tipOnPreTax ? "pre-tax subtotal" : "post-tax total");
+        els.resTipPerson.textContent = formatUSD(res.tipPerPerson) + " / person";
+        els.resTipTotal.textContent = formatUSD(res.totalTip) + " total";
+
+        var tipDeltaTotal = res.totalTax * (res.tipPercent / 100);
+        if (tipDeltaTotal >= 0.005) {
+          var tipDeltaPerPerson = tipDeltaTotal / res.people;
+          els.resTaxTipDelta.textContent = res.tipOnPreTax
+            ? "Post-tax tipping would add " + formatUSD(tipDeltaTotal) + " total (" + formatUSD(tipDeltaPerPerson) + "/person)."
+            : "Pre-tax tipping would save " + formatUSD(tipDeltaTotal) + " total (" + formatUSD(tipDeltaPerPerson) + "/person).";
+        } else {
+          els.resTaxTipDelta.textContent = "";
+        }
+
+        els.resGrandTotal.textContent = formatUSD(res.grandTotal);
+        els.resGrandSub.textContent = res.roundUp && res.roundingExtra >= 0.005
+          ? "Includes +" + formatUSD(res.roundingExtra) + " rounding extra"
+          : "Subtotal + tax + tip";
+      }
+
+      // Input Handlers
+      els.form.addEventListener("submit", function (e) {
+        e.preventDefault();
+      });
+
+      els.subtotalInput.addEventListener("input", function (e) {
+        var cleaned = sanitizeDecimalInput(e.target.value, 999999);
+        if (cleaned !== e.target.value) e.target.value = cleaned;
+        state.subtotalRaw = cleaned;
+        render();
+      });
+
+      els.taxInput.addEventListener("input", function (e) {
+        var maxTax = state.taxMode === "percent" ? 100 : 999999;
+        var cleaned = sanitizeDecimalInput(e.target.value, maxTax);
+        if (cleaned !== e.target.value) e.target.value = cleaned;
+        state.taxRaw = cleaned;
+        render();
+      });
+
+      function setTaxMode(mode) {
+        if (state.taxMode === mode) return;
+        state.taxMode = mode;
+        // Clamp existing value if switching to percent and value > 100
+        if (mode === "percent" && parseNonNegative(state.taxRaw) > 100) {
+          state.taxRaw = "100";
+          els.taxInput.value = "100";
+        }
+        render();
+        els.taxInput.focus();
+      }
+
+      els.taxModePercent.addEventListener("click", function () { setTaxMode("percent"); });
+      els.taxModeDollar.addEventListener("click", function () { setTaxMode("dollar"); });
+
+      els.tipButtons.forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          state.tipPercent = Number(btn.getAttribute("data-tip"));
+          state.isCustomTip = false;
+          state.customTipRaw = "";
+          els.customTipInput.value = "";
+          render();
+        });
+      });
+
+      els.customTipInput.addEventListener("input", function (e) {
+        var cleaned = sanitizeDecimalInput(e.target.value, 200);
+        if (cleaned !== e.target.value) e.target.value = cleaned;
+        state.customTipRaw = cleaned;
+        if (cleaned === "") {
+          state.isCustomTip = true;
+          state.tipPercent = 0;
+        } else {
+          var numeric = parseNonNegative(cleaned);
+          state.tipPercent = numeric;
+          state.isCustomTip = PRESET_TIPS.indexOf(numeric) === -1 || cleaned.indexOf(".") !== -1;
+        }
+        render();
+      });
+
+      els.customTipInput.addEventListener("focus", function () {
+        if (state.customTipRaw !== "") {
+          state.isCustomTip = true;
+          render();
+        }
+      });
+
+      function setPeople(next) {
+        state.people = clampPeople(next);
+        els.peopleInput.value = String(state.people);
+        render();
+      }
+
+      els.peopleDec.addEventListener("click", function () {
+        setPeople(state.people - 1);
+      });
+
+      els.peopleInc.addEventListener("click", function () {
+        setPeople(state.people + 1);
+      });
+
+      els.peopleInput.addEventListener("input", function (e) {
+        var raw = e.target.value;
+        if (raw === "") return;
+        state.people = clampPeople(raw);
+        if (parseInt(raw, 10) > 99) {
+          e.target.value = "99";
+        }
+        render();
+      });
+
+      els.peopleInput.addEventListener("blur", function () {
+        setPeople(els.peopleInput.value);
+      });
+
+      els.pretaxToggle.addEventListener("click", function () {
+        state.tipOnPreTax = !state.tipOnPreTax;
+        render();
+      });
+
+      els.roundToggle.addEventListener("click", function () {
+        state.roundUp = !state.roundUp;
+        render();
+      });
+
+      function copyTextToClipboard(text) {
+        if (navigator.clipboard && typeof navigator.clipboard.writeText === "function") {
+          return navigator.clipboard.writeText(text).catch(function () {
+            return fallbackCopy(text);
+          });
+        }
+        return fallbackCopy(text);
+      }
+
+      function fallbackCopy(text) {
+        return new Promise(function (resolve, reject) {
+          var ta = document.createElement("textarea");
+          ta.value = text;
+          ta.setAttribute("readonly", "");
+          ta.style.position = "fixed";
+          ta.style.top = "-9999px";
+          document.body.appendChild(ta);
+          ta.select();
+          try {
+            var ok = document.execCommand("copy");
+            document.body.removeChild(ta);
+            if (ok) resolve();
+            else reject(new Error("Copy failed"));
+          } catch (err) {
+            document.body.removeChild(ta);
+            reject(err);
+          }
+        });
+      }
+
+      els.copyBtn.addEventListener("click", function () {
+        var res = getComputedResult();
+        if (res.subtotal <= 0 && res.totalTax <= 0) {
+          showFeedback("Enter a bill subtotal first.");
+          els.subtotalInput.focus();
+          return;
+        }
+        var summary = buildShareSummary(res);
+        copyTextToClipboard(summary).then(function () {
+          els.copyBtnText.textContent = "Copied!";
+          showFeedback("Summary copied — ready to paste into Venmo or Messages.");
+        }).catch(function () {
+          showFeedback("Could not access clipboard in this browser.");
+        });
+      });
+
+      function resetCalculator() {
+        state.subtotalRaw = "";
+        state.taxRaw = "";
+        state.taxMode = "percent";
+        state.tipPercent = 20;
+        state.customTipRaw = "";
+        state.isCustomTip = false;
+        state.people = 2;
+        state.tipOnPreTax = true;
+        state.roundUp = false;
+
+        els.subtotalInput.value = "";
+        els.taxInput.value = "";
+        els.customTipInput.value = "";
+        els.peopleInput.value = "2";
+        els.copyBtnText.textContent = "Copy Summary";
+
+        render();
+        showFeedback("Calculator reset.");
+        els.subtotalInput.focus();
+      }
+
+      els.resetBtn.addEventListener("click", resetCalculator);
+      els.headerResetBtn.addEventListener("click", function () {
+        resetCalculator();
+        var calcSection = document.getElementById("calculator");
+        if (calcSection && typeof calcSection.scrollIntoView === "function") {
+          calcSection.scrollIntoView({ behavior: "smooth" });
+        }
+      });
+
+      render();
+    })();
+  </script>
+</body>
+</html>
